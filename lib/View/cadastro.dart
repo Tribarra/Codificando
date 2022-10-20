@@ -8,14 +8,9 @@ class Cadastro extends StatefulWidget {
 }
 
 class _CadastroState extends State<Cadastro> {
-  late TextEditingController _nomecontroller;
-  late TextEditingController _emailcontroller;
-
   @override
   void initState() {
     super.initState();
-    _nomecontroller = TextEditingController();
-    _emailcontroller = TextEditingController();
   }
 
   @override
@@ -79,24 +74,40 @@ class _CadastroState extends State<Cadastro> {
                           style: TextStyle(
                               color: Colors.black, fontFamily: "upheavtt")),
                     ])),
-                TextField(
-                  style: const TextStyle(
-                    color: Color.fromARGB(255, 0, 168, 168),
-                    fontSize: 18,
-                    fontFamily: 'Capsuula',
-                  ),
-                  textAlignVertical: TextAlignVertical.top,
-                  controller: _nomecontroller,
-                  decoration: const InputDecoration(
-                    labelStyle: TextStyle(
-                      color: Color.fromARGB(255, 0, 168, 168),
-                      fontSize: 18,
-                      fontFamily: 'Capsuula',
+                Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Container(
+                    height: 30,
+                    width: 125,
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                            color: Color.fromARGB(59, 0, 0, 0),
+                            offset: Offset(0, 0),
+                            blurRadius: 3)
+                      ],
+                      borderRadius: BorderRadius.all(Radius.circular(5)),
                     ),
-                    labelText: 'Senha:',
-                    border: InputBorder.none,
+                    child: const Padding(
+                      padding: EdgeInsets.only(
+                        left: 12,
+                        right: 12,
+                      ),
+                      child: TextField(
+                        style: TextStyle(
+                          color: Colors.green,
+                          fontSize: 18,
+                          fontFamily: 'upheavtt',
+                        ),
+                        textAlignVertical: TextAlignVertical.center,
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                        ),
+                      ),
+                    ),
                   ),
-                )
+                ),
               ]),
             ),
           ])),
