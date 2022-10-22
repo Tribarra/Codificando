@@ -1,15 +1,15 @@
-import 'package:codificando/View/login.dart';
+import 'package:codificando/View/cadastro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class Cadastro extends StatefulWidget {
-  const Cadastro({Key? key}) : super(key: key);
+class Login extends StatefulWidget {
+  const Login({Key? key}) : super(key: key);
 
   @override
-  State<Cadastro> createState() => _CadastroState();
+  State<Login> createState() => _LoginState();
 }
 
-class _CadastroState extends State<Cadastro> {
+class _LoginState extends State<Login> {
   late TextEditingController _namecontroller;
   late TextEditingController _emailcontroller;
   late TextEditingController _passwordcontroller;
@@ -97,62 +97,6 @@ class _CadastroState extends State<Cadastro> {
                                       color: Colors.orange,
                                       fontFamily: "upheavtt")),
                               TextSpan(
-                                  text: 'Nome =',
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontFamily: "upheavtt")),
-                            ])),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                            left: 12,
-                            right: 12,
-                          ),
-                          child: SizedBox(
-                            width: 125,
-                            child: TextField(
-                              controller: _namecontroller,
-                              textDirection: TextDirection.ltr,
-                              autocorrect: false,
-                              cursorColor: Colors.green,
-                              style: const TextStyle(
-                                color: Colors.green,
-                                fontSize: 20,
-                                fontFamily: 'upheavtt',
-                              ),
-                              decoration: const InputDecoration(
-                                labelText: '"nome"',
-                                labelStyle: TextStyle(
-                                  color: Colors.green,
-                                  fontSize: 20,
-                                  fontFamily: 'upheavtt',
-                                ),
-                                constraints: BoxConstraints(maxHeight: 30),
-                                contentPadding:
-                                    EdgeInsets.only(left: 10, right: 10),
-                                border: OutlineInputBorder(
-                                    borderSide:
-                                        BorderSide(color: Colors.black)),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ]),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(15),
-                      child: Row(children: [
-                        RichText(
-                            text: const TextSpan(
-                                style: TextStyle(
-                                  fontSize: 20,
-                                ),
-                                children: [
-                              TextSpan(
-                                  text: '   String ',
-                                  style: TextStyle(
-                                      color: Colors.orange,
-                                      fontFamily: "upheavtt")),
-                              TextSpan(
                                   text: 'email =',
                                   style: TextStyle(
                                       color: Colors.black,
@@ -197,7 +141,7 @@ class _CadastroState extends State<Cadastro> {
                     ),
                     Padding(
                       padding: const EdgeInsets.all(15),
-                      child: Column(children: [
+                      child: Row(children: [
                         RichText(
                             text: const TextSpan(
                                 style: TextStyle(
@@ -210,20 +154,15 @@ class _CadastroState extends State<Cadastro> {
                                       color: Colors.orange,
                                       fontFamily: "upheavtt")),
                               TextSpan(
-                                  text: 'senha',
+                                  text: 'senha =',
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontFamily: "upheavtt")),
-                              TextSpan(
-                                  text: '[] = {',
-                                  style: TextStyle(
-                                      color: Colors.orange,
-                                      fontFamily: "upheavtt")),
                             ])),
                         Padding(
-                          padding: const EdgeInsets.only(left: 20, top: 12),
+                          padding: const EdgeInsets.only(left: 12, top: 12),
                           child: SizedBox(
-                            width: 160,
+                            width: 125,
                             child: TextField(
                               controller: _passwordcontroller,
                               keyboardType: TextInputType.emailAddress,
@@ -236,39 +175,7 @@ class _CadastroState extends State<Cadastro> {
                                 fontFamily: 'upheavtt',
                               ),
                               decoration: const InputDecoration(
-                                labelText: '"Nova senha"',
-                                labelStyle: TextStyle(
-                                  color: Colors.green,
-                                  fontSize: 20,
-                                  fontFamily: 'upheavtt',
-                                ),
-                                constraints: BoxConstraints(maxHeight: 30),
-                                contentPadding:
-                                    EdgeInsets.only(left: 10, right: 10),
-                                border: OutlineInputBorder(
-                                    borderSide:
-                                        BorderSide(color: Colors.black)),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 20, top: 12),
-                          child: SizedBox(
-                            width: 160,
-                            child: TextField(
-                              controller: _confirmpasswordcontroller,
-                              keyboardType: TextInputType.emailAddress,
-                              textDirection: TextDirection.ltr,
-                              autocorrect: false,
-                              cursorColor: Colors.green,
-                              style: const TextStyle(
-                                color: Colors.green,
-                                fontSize: 20,
-                                fontFamily: 'upheavtt',
-                              ),
-                              decoration: const InputDecoration(
-                                labelText: '"conf senha"',
+                                labelText: '"Senha"',
                                 labelStyle: TextStyle(
                                   color: Colors.green,
                                   fontSize: 20,
@@ -289,7 +196,7 @@ class _CadastroState extends State<Cadastro> {
                     const Padding(
                       padding: EdgeInsets.all(15),
                       child: Text(
-                        '   }\n\n\n}',
+                        '}',
                         style: TextStyle(
                           color: Colors.orange,
                           fontSize: 20,
@@ -303,13 +210,7 @@ class _CadastroState extends State<Cadastro> {
                         Padding(
                           padding: const EdgeInsets.all(15),
                           child: ElevatedButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const Cadastro()),
-                              );
-                            },
+                            onPressed: () {},
                             style: ElevatedButton.styleFrom(
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10),
@@ -325,12 +226,12 @@ class _CadastroState extends State<Cadastro> {
                                     ),
                                     children: [
                                   TextSpan(
-                                      text: 'Salvar ',
+                                      text: 'executar ',
                                       style: TextStyle(
                                           color: Colors.orange,
                                           fontFamily: "upheavtt")),
                                   TextSpan(
-                                      text: 'cadastro.',
+                                      text: 'login.',
                                       style: TextStyle(
                                           color: Colors.black,
                                           fontFamily: "upheavtt")),
@@ -352,7 +253,7 @@ class _CadastroState extends State<Cadastro> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => const Login()),
+                                        builder: (context) => const Cadastro()),
                                   );
                                 },
                                 style: ElevatedButton.styleFrom(
@@ -370,7 +271,7 @@ class _CadastroState extends State<Cadastro> {
                                         ),
                                         children: [
                                       TextSpan(
-                                          text: 'login.',
+                                          text: 'cadastro.',
                                           style: TextStyle(
                                               color: Colors.black,
                                               fontFamily: "upheavtt")),
