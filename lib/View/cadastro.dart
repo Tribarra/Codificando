@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 class Cadastro extends StatefulWidget {
@@ -74,36 +76,126 @@ class _CadastroState extends State<Cadastro> {
                           style: TextStyle(
                               color: Colors.black, fontFamily: "upheavtt")),
                     ])),
-                Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Container(
-                    height: 30,
+                const Padding(
+                  padding: EdgeInsets.only(
+                    left: 12,
+                    right: 12,
+                  ),
+                  child: SizedBox(
                     width: 125,
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                            color: Color.fromARGB(59, 0, 0, 0),
-                            offset: Offset(0, 0),
-                            blurRadius: 3)
-                      ],
-                      borderRadius: BorderRadius.all(Radius.circular(5)),
-                    ),
-                    child: const Padding(
-                      padding: EdgeInsets.only(
-                        left: 12,
-                        right: 12,
+                    child: TextField(
+                      textDirection: TextDirection.ltr,
+                      autocorrect: false,
+                      cursorColor: Colors.green,
+                      style: TextStyle(
+                        color: Colors.green,
+                        fontSize: 20,
+                        fontFamily: 'upheavtt',
                       ),
-                      child: TextField(
+                      decoration: InputDecoration(
+                        constraints: BoxConstraints(maxHeight: 30),
+                        contentPadding: EdgeInsets.only(left: 10, right: 10),
+                        border: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.black)),
+                      ),
+                    ),
+                  ),
+                ),
+              ]),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(15),
+              child: Row(children: [
+                RichText(
+                    text: const TextSpan(
                         style: TextStyle(
+                          fontSize: 20,
+                        ),
+                        children: [
+                      TextSpan(
+                          text: '   String ',
+                          style: TextStyle(
+                              color: Colors.orange, fontFamily: "upheavtt")),
+                      TextSpan(
+                          text: 'email =',
+                          style: TextStyle(
+                              color: Colors.black, fontFamily: "upheavtt")),
+                    ])),
+                const Padding(
+                  padding: EdgeInsets.only(
+                    left: 12,
+                    right: 12,
+                  ),
+                  child: SizedBox(
+                    width: 125,
+                    child: TextField(
+                      keyboardType: TextInputType.emailAddress,
+                      textDirection: TextDirection.ltr,
+                      autocorrect: false,
+                      cursorColor: Colors.green,
+                      style: TextStyle(
+                        color: Colors.green,
+                        fontSize: 20,
+                        fontFamily: 'upheavtt',
+                      ),
+                      decoration: InputDecoration(
+                        constraints: BoxConstraints(maxHeight: 30),
+                        contentPadding: EdgeInsets.only(left: 10, right: 10),
+                        border: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.black)),
+                      ),
+                    ),
+                  ),
+                ),
+              ]),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(15),
+              child: Column(children: [
+                RichText(
+                    text: const TextSpan(
+                        style: TextStyle(
+                          fontSize: 20,
+                        ),
+                        children: [
+                      TextSpan(
+                          text: '   String ',
+                          style: TextStyle(
+                              color: Colors.orange, fontFamily: "upheavtt")),
+                      TextSpan(
+                          text: 'senha',
+                          style: TextStyle(
+                              color: Colors.black, fontFamily: "upheavtt")),
+                      TextSpan(
+                          text: '[] = {',
+                          style: TextStyle(
+                              color: Colors.orange, fontFamily: "upheavtt")),
+                    ])),
+                const Padding(
+                  padding: EdgeInsets.only(left: 20, top: 12),
+                  child: SizedBox(
+                    width: 160,
+                    child: TextField(
+                      keyboardType: TextInputType.emailAddress,
+                      textDirection: TextDirection.ltr,
+                      autocorrect: false,
+                      cursorColor: Colors.green,
+                      style: TextStyle(
+                        color: Colors.green,
+                        fontSize: 20,
+                        fontFamily: 'upheavtt',
+                      ),
+                      decoration: InputDecoration(
+                        labelText: '"Nova senha"',
+                        labelStyle: TextStyle(
                           color: Colors.green,
-                          fontSize: 18,
+                          fontSize: 20,
                           fontFamily: 'upheavtt',
                         ),
-                        textAlignVertical: TextAlignVertical.center,
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                        ),
+                        constraints: BoxConstraints(maxHeight: 30),
+                        contentPadding: EdgeInsets.only(left: 10, right: 10),
+                        border: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.black)),
                       ),
                     ),
                   ),
