@@ -15,6 +15,8 @@ class _LoginState extends State<Login> {
   late TextEditingController _passwordcontroller;
   late TextEditingController _confirmpasswordcontroller;
 
+  String? password;
+
   @override
   void initState() {
     super.initState();
@@ -109,6 +111,7 @@ class _LoginState extends State<Login> {
                           ),
                           child: SizedBox(
                             width: 125,
+                            height: 70,
                             child: TextField(
                               controller: _emailcontroller,
                               keyboardType: TextInputType.emailAddress,
@@ -163,6 +166,7 @@ class _LoginState extends State<Login> {
                           padding: const EdgeInsets.only(left: 12, top: 12),
                           child: SizedBox(
                             width: 125,
+                            height: 70,
                             child: TextField(
                               controller: _passwordcontroller,
                               keyboardType: TextInputType.emailAddress,
@@ -174,17 +178,19 @@ class _LoginState extends State<Login> {
                                 fontSize: 20,
                                 fontFamily: 'upheavtt',
                               ),
-                              decoration: const InputDecoration(
+                              decoration: InputDecoration(
+                                errorText: password,
                                 labelText: '"Senha"',
-                                labelStyle: TextStyle(
+                                labelStyle: const TextStyle(
                                   color: Colors.green,
                                   fontSize: 20,
                                   fontFamily: 'upheavtt',
                                 ),
-                                constraints: BoxConstraints(maxHeight: 30),
+                                constraints:
+                                    const BoxConstraints(maxHeight: 30),
                                 contentPadding:
-                                    EdgeInsets.only(left: 10, right: 10),
-                                border: OutlineInputBorder(
+                                    const EdgeInsets.only(left: 10, right: 10),
+                                border: const OutlineInputBorder(
                                     borderSide:
                                         BorderSide(color: Colors.black)),
                               ),
@@ -204,13 +210,20 @@ class _LoginState extends State<Login> {
                         ),
                       ),
                     ),
+                    const SizedBox(
+                      height: 30,
+                    ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Padding(
                           padding: const EdgeInsets.all(15),
                           child: ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              setState(() {
+                                errorteste();
+                              });
+                            },
                             style: ElevatedButton.styleFrom(
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10),
@@ -311,7 +324,33 @@ class _LoginState extends State<Login> {
                                   )),
                             ),
                           ],
-                        )
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(15),
+                          child: ElevatedButton(
+                            onPressed: () {},
+                            style: ElevatedButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                    side: const BorderSide(
+                                      color: Colors.black,
+                                    )),
+                                primary: Colors.white,
+                                fixedSize: const Size(300, 50)),
+                            child: RichText(
+                                text: const TextSpan(
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                    ),
+                                    children: [
+                                  TextSpan(
+                                      text: 'Esqueceu sua senha? ',
+                                      style: TextStyle(
+                                          color: Colors.orange,
+                                          fontFamily: "upheavtt")),
+                                ])),
+                          ),
+                        ),
                       ],
                     )
                   ]),
@@ -320,5 +359,13 @@ class _LoginState extends State<Login> {
         ),
       ),
     );
+  }
+
+  void errorteste() {
+    String text = '';
+    text = _passwordcontroller.text.characters.string;
+    if (text.isEmpty == true) {
+      password = 'Campo vazio!';
+    }
   }
 }
