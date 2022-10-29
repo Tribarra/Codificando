@@ -97,7 +97,7 @@ class Home extends StatelessWidget {
                 padding: const EdgeInsets.all(15),
                 child: ElevatedButton(
                     onPressed: () {
-                      Navigator.push(
+                      Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
                             builder: (context) => const Cadastro()),

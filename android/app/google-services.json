@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "26822094551",
+    "project_id": "codificando-17452",
+    "storage_bucket": "codificando-17452.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:26822094551:android:ea2a82f08fdc3f8bf00a92",
+        "android_client_info": {
+          "package_name": "com.tribarra.codificando"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "26822094551-qkprokgra0i0cnv1pm7032a8h2j0fhvh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tribarra.codificando",
+            "certificate_hash": "17c0713bafc2603f29c78106e03839a03a5a7876"
+          }
+        },
+        {
+          "client_id": "26822094551-35rid99rfop1bu23pllekkvouhjumlj0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDW0NFRUbdeZB0z_QfG1ZNKw_2GCEI40wI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "26822094551-35rid99rfop1bu23pllekkvouhjumlj0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
