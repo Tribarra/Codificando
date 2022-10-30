@@ -290,17 +290,22 @@ class _CadastroState extends State<Cadastro> {
                                 setState(() {
                                   errorteste();
                                 });
+                                if (errormessage[0] == null &&
+                                    errormessage[1] == null &&
+                                    errormessage[2] == null &&
+                                    errormessage[3] == null) {
+                                  Map<String, dynamic> userData = {
+                                    "name": _namecontroller.text,
+                                    "email": _emailcontroller.text,
+                                  };
 
-                                Map<String, dynamic> userData = {
-                                  "name": _namecontroller.text,
-                                  "email": _emailcontroller.text,
-                                };
-
-                                model.signUp(
-                                    userData: userData,
-                                    pass: _passwordcontroller.text,
-                                    onSuccess: _onSuccess,
-                                    onFail: _onFail);
+                                  model.signUp(
+                                      userData: userData,
+                                      pass: _passwordcontroller.text,
+                                      onSuccess: _onSuccess,
+                                      onFail: _onFail,
+                                      onFailEmail: _onFailEmail);
+                                }
                               },
                               style: ElevatedButton.styleFrom(
                                   shape: RoundedRectangleBorder(
@@ -446,7 +451,44 @@ class _CadastroState extends State<Cadastro> {
     }
   }
 
-  void _onSuccess() {}
+  void _onSuccess() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text(
+          'Cadastro realizado com sucesso!',
+          style: TextStyle(color: Colors.white, fontFamily: "upheavtt"),
+        ),
+        backgroundColor: Colors.green,
+      ),
+    );
+    Future.delayed(Duration(seconds: 2)).then((value) {
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => const Login()));
+    });
+  }
 
-  void _onFail() {}
+  void _onFailEmail() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text(
+          'Email ja foi utilizado!',
+          style: TextStyle(color: Colors.white, fontFamily: "upheavtt"),
+        ),
+        backgroundColor: Colors.red,
+      ),
+    );
+  }
+
+  void _onFail() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        duration: Duration(seconds: 2),
+        content: Text(
+          'Falha ao cadastrar!',
+          style: TextStyle(color: Colors.white, fontFamily: "upheavtt"),
+        ),
+        backgroundColor: Colors.red,
+      ),
+    );
+  }
 }

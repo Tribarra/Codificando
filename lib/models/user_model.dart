@@ -13,7 +13,8 @@ class UserModel extends Model {
       {required Map<String, dynamic> userData,
       required String pass,
       required VoidCallback onSuccess,
-      required VoidCallback onFail}) async {
+      required VoidCallback onFail,
+      required VoidCallback onFailEmail}) async {
     Firebase.initializeApp();
     isLoading = true;
     notifyListeners();
@@ -31,7 +32,7 @@ class UserModel extends Model {
         isLoading = false;
         notifyListeners();
       } else if (e.code == 'email-already-in-use') {
-        onFail();
+        onFailEmail();
         isLoading = false;
         notifyListeners();
       }
