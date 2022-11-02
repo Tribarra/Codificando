@@ -14,6 +14,7 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   late TextEditingController _emailcontroller;
   late TextEditingController _passwordcontroller;
+  late TextEditingController _recoveremailcontroller;
 
   List<String?> errormessage = [null, null];
 
@@ -23,6 +24,7 @@ class _LoginState extends State<Login> {
 
     _emailcontroller = TextEditingController();
     _passwordcontroller = TextEditingController();
+    _recoveremailcontroller = TextEditingController();
   }
 
   @override
@@ -198,7 +200,18 @@ class _LoginState extends State<Login> {
                               padding: const EdgeInsets.all(15),
                               child: ElevatedButton(
                                 onPressed: () {
-                                  model.signIn();
+                                  setState(() {
+                                    errorteste();
+                                  });
+                                  if (errormessage[0] == null &&
+                                      errormessage[1] == null) {
+                                    model.signIn(
+                                        email: _emailcontroller.text,
+                                        pass: _passwordcontroller.text,
+                                        onSuccess: _onSuccess,
+                                        onFail: _onFail,
+                                        onFailInfo: _onFailInfo);
+                                  }
                                 },
                                 style: ElevatedButton.styleFrom(
                                     shape: RoundedRectangleBorder(
@@ -306,7 +319,147 @@ class _LoginState extends State<Login> {
                             Padding(
                               padding: const EdgeInsets.all(15),
                               child: ElevatedButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  showDialog(
+                                      context: context,
+                                      builder: (context) => SimpleDialog(
+                                            title: const Text(
+                                              'Informe seu email',
+                                              style: TextStyle(
+                                                  fontSize: 20,
+                                                  color: Colors.black,
+                                                  fontFamily: "upheavtt"),
+                                            ),
+                                            children: <Widget>[
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.all(10),
+                                                child: SizedBox(
+                                                  height: 50,
+                                                  child: TextField(
+                                                    controller:
+                                                        _recoveremailcontroller,
+                                                    keyboardType: TextInputType
+                                                        .emailAddress,
+                                                    textDirection:
+                                                        TextDirection.ltr,
+                                                    autocorrect: false,
+                                                    cursorColor: Colors.green,
+                                                    style: const TextStyle(
+                                                      color: Colors.green,
+                                                      fontSize: 20,
+                                                      fontFamily: 'upheavtt',
+                                                    ),
+                                                    decoration:
+                                                        const InputDecoration(
+                                                      labelText: '"email"',
+                                                      labelStyle: TextStyle(
+                                                        color: Colors.green,
+                                                        fontSize: 20,
+                                                        fontFamily: 'upheavtt',
+                                                      ),
+                                                      constraints:
+                                                          BoxConstraints(
+                                                              maxHeight: 30),
+                                                      contentPadding:
+                                                          EdgeInsets.only(
+                                                              left: 10,
+                                                              right: 10),
+                                                      border: OutlineInputBorder(
+                                                          borderSide:
+                                                              BorderSide(
+                                                                  color: Colors
+                                                                      .black)),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  TextButton(
+                                                      onPressed: () {
+                                                        Navigator.of(context)
+                                                            .pop();
+                                                      },
+                                                      child: const Text(
+                                                          'Cancelar',
+                                                          style: TextStyle(
+                                                              fontSize: 16,
+                                                              color:
+                                                                  Colors.orange,
+                                                              fontFamily:
+                                                                  "upheavtt"))),
+                                                  TextButton(
+                                                      onPressed: () {
+                                                        Navigator.of(context)
+                                                            .pop();
+                                                        setState(() {
+                                                          recovererrorteste();
+                                                        });
+
+                                                        if (recovererrorteste() ==
+                                                            '') {
+                                                          model.recoverPass(
+                                                              _recoveremailcontroller
+                                                                  .text);
+                                                          ScaffoldMessenger.of(
+                                                                  context)
+                                                              .showSnackBar(
+                                                            const SnackBar(
+                                                              duration:
+                                                                  Duration(
+                                                                      seconds:
+                                                                          2),
+                                                              content: Text(
+                                                                'Confira seu email!',
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                        .white,
+                                                                    fontFamily:
+                                                                        "upheavtt"),
+                                                              ),
+                                                              backgroundColor:
+                                                                  Colors.green,
+                                                            ),
+                                                          );
+                                                        } else {
+                                                          ScaffoldMessenger.of(
+                                                                  context)
+                                                              .showSnackBar(
+                                                            SnackBar(
+                                                              duration:
+                                                                  const Duration(
+                                                                      seconds:
+                                                                          2),
+                                                              content: Text(
+                                                                recovererrorteste(),
+                                                                style: const TextStyle(
+                                                                    color: Colors
+                                                                        .white,
+                                                                    fontFamily:
+                                                                        "upheavtt"),
+                                                              ),
+                                                              backgroundColor:
+                                                                  Colors.red,
+                                                            ),
+                                                          );
+                                                        }
+                                                      },
+                                                      child: const Text(
+                                                          'Alterar senha',
+                                                          style: TextStyle(
+                                                              fontSize: 16,
+                                                              color:
+                                                                  Colors.green,
+                                                              fontFamily:
+                                                                  "upheavtt")))
+                                                ],
+                                              ),
+                                            ],
+                                          ));
+                                },
                                 style: ElevatedButton.styleFrom(
                                     shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(10),
@@ -341,6 +494,16 @@ class _LoginState extends State<Login> {
     );
   }
 
+  String recovererrorteste() {
+    if (!_recoveremailcontroller.text.contains("@")) {
+      return 'Email invalido!';
+    } else if (_recoveremailcontroller.text.isEmpty) {
+      return 'Campo vazio!';
+    } else {
+      return '';
+    }
+  }
+
   void errorteste() {
     String text = '';
     text = _emailcontroller.text.characters.string;
@@ -356,5 +519,48 @@ class _LoginState extends State<Login> {
     } else {
       errormessage[1] = null;
     }
+  }
+
+  void _onSuccess() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        duration: Duration(seconds: 2),
+        content: Text(
+          'Login realizado com sucesso!',
+          style: TextStyle(color: Colors.white, fontFamily: "upheavtt"),
+        ),
+        backgroundColor: Colors.green,
+      ),
+    );
+    Future.delayed(const Duration(seconds: 2)).then((value) {
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => const Login()));
+    });
+  }
+
+  void _onFailInfo() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        duration: Duration(seconds: 2),
+        content: Text(
+          'Email ou senha incorretos!',
+          style: TextStyle(color: Colors.white, fontFamily: "upheavtt"),
+        ),
+        backgroundColor: Colors.red,
+      ),
+    );
+  }
+
+  void _onFail() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        duration: Duration(seconds: 2),
+        content: Text(
+          'Falha ao fazer login!',
+          style: TextStyle(color: Colors.white, fontFamily: "upheavtt"),
+        ),
+        backgroundColor: Colors.red,
+      ),
+    );
   }
 }

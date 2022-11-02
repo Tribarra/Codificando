@@ -17,6 +17,7 @@ class Codificando extends StatelessWidget {
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
     ]);
+
     return ScopedModel<UserModel>(
       model: UserModel(),
       child: const MaterialApp(

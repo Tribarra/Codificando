@@ -384,9 +384,9 @@ class _CadastroState extends State<Cadastro> {
                                 padding: const EdgeInsets.all(10),
                                 child: ElevatedButton(
                                     onPressed: () {
-                                      setState(() {
-                                        errorteste();
-                                      });
+                                      model.getUser(
+                                          onSuccess: _onSuccess,
+                                          onFail: _onFail);
                                     },
                                     style: ElevatedButton.styleFrom(
                                         shape: RoundedRectangleBorder(
@@ -454,6 +454,7 @@ class _CadastroState extends State<Cadastro> {
   void _onSuccess() {
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
+        duration: Duration(seconds: 2),
         content: Text(
           'Cadastro realizado com sucesso!',
           style: TextStyle(color: Colors.white, fontFamily: "upheavtt"),
@@ -461,7 +462,7 @@ class _CadastroState extends State<Cadastro> {
         backgroundColor: Colors.green,
       ),
     );
-    Future.delayed(Duration(seconds: 2)).then((value) {
+    Future.delayed(const Duration(seconds: 2)).then((value) {
       Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (context) => const Login()));
     });
