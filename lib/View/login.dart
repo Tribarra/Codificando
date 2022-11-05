@@ -206,12 +206,16 @@ class _LoginState extends State<Login> {
                                   });
                                   if (errormessage[0] == null &&
                                       errormessage[1] == null) {
-                                    model.signIn(
-                                        email: _emailcontroller.text,
-                                        pass: _passwordcontroller.text,
-                                        onSuccess: _onSuccess,
-                                        onFail: _onFail,
-                                        onFailInfo: _onFailInfo);
+                                    model.conectTest(
+                                        netSucess: () {
+                                          model.signIn(
+                                              email: _emailcontroller.text,
+                                              pass: _passwordcontroller.text,
+                                              onSuccess: _onSuccess,
+                                              onFail: _onFail,
+                                              onFailInfo: _onFailInfo);
+                                        },
+                                        netFail: _conectFail);
                                   }
                                 },
                                 style: ElevatedButton.styleFrom(
@@ -490,6 +494,17 @@ class _LoginState extends State<Login> {
         }),
       ),
     );
+  }
+
+  void _conectFail() {
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+      duration: Duration(seconds: 2),
+      content: Text(
+        'Sem conexão com a internet!',
+        style: TextStyle(color: Colors.white, fontFamily: "upheavtt"),
+      ),
+      backgroundColor: Colors.red,
+    ));
   }
 
   String recovererrorteste() {
