@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:codificando/models/system_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -11,7 +12,8 @@ class UserModel extends Model {
 
   final GoogleSignIn googleSignIn = GoogleSignIn();
 
-  void getUser({
+  void signInGoogle({
+    //Cadastro com o google
     required VoidCallback onSuccess,
     required VoidCallback onFail,
   }) async {
@@ -34,12 +36,11 @@ class UserModel extends Model {
       };
       _saveUserData(userData);
       onSuccess();
-      isLoading = false;
-      notifyListeners();
     } catch (e) {
       onFail();
-      return null;
     }
+    isLoading = false;
+    notifyListeners();
   }
 
   Future<void> signUp(
@@ -49,36 +50,26 @@ class UserModel extends Model {
       required VoidCallback onFail,
       required VoidCallback onFailEmail}) async {
     isLoading = true;
-
-    @override
-    void addListener(VoidCallback listener) {
-      super.addListener(listener);
-      _loadCurrentUser();
-    }
-
     notifyListeners();
+
     try {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: userData["email"], password: pass);
       onSuccess();
-      isLoading = false;
-      notifyListeners();
+
       await _saveUserData(userData);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         onFail();
-        isLoading = false;
-        notifyListeners();
       } else if (e.code == 'email-already-in-use') {
         onFailEmail();
-        isLoading = false;
-        notifyListeners();
       }
     } catch (e) {
       onFail();
-      isLoading = false;
-      notifyListeners();
     }
+
+    isLoading = false;
+    notifyListeners();
   }
 
   Future<void> signIn({
@@ -119,7 +110,7 @@ class UserModel extends Model {
     return true;
   }
 
-  Future<Null> _saveUserData(Map<String, dynamic> userData) async {
+  Future<void> _saveUserData(Map<String, dynamic> userData) async {
     this.userData = userData;
     User? user = FirebaseAuth.instance.currentUser;
 
@@ -131,7 +122,7 @@ class UserModel extends Model {
     }
   }
 
-  Future<Null> _loadCurrentUser() async {
+  Future<void> _loadCurrentUser() async {
     User? user = FirebaseAuth.instance.currentUser;
     if (user != null) {
       DocumentSnapshot docUser = await FirebaseFirestore.instance
@@ -140,6 +131,23 @@ class UserModel extends Model {
           .get(const GetOptions());
       userData = {"name": docUser.get("name"), "email": docUser.get("email")};
     }
+    notifyListeners();
+  }
+
+  Future<void> conectTest(
+      {required VoidCallback netSucess, required VoidCallback netFail}) async {
+    bool? state;
+    isLoading = true;
+    notifyListeners();
+    state = await SystemModel().conectionTest();
+    await Future.delayed(const Duration(seconds: 1)).then((value) {
+      if (state == false) {
+        netFail();
+      } else {
+        netSucess();
+      }
+    });
+    isLoading = false;
     notifyListeners();
   }
 }

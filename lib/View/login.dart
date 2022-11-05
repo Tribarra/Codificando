@@ -1,4 +1,5 @@
 import 'package:codificando/View/cadastro.dart';
+import 'package:codificando/View/linguagens.dart';
 import 'package:codificando/models/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -219,7 +220,7 @@ class _LoginState extends State<Login> {
                                         side: const BorderSide(
                                           color: Colors.black,
                                         )),
-                                    primary: Colors.white,
+                                    backgroundColor: Colors.white,
                                     fixedSize: const Size(300, 50)),
                                 child: RichText(
                                     text: const TextSpan(
@@ -266,7 +267,7 @@ class _LoginState extends State<Login> {
                                             side: const BorderSide(
                                               color: Colors.black,
                                             )),
-                                        primary: Colors.white,
+                                        backgroundColor: Colors.white,
                                         fixedSize: const Size(140, 50)),
                                     child: RichText(
                                         text: const TextSpan(
@@ -291,12 +292,9 @@ class _LoginState extends State<Login> {
                                   padding: const EdgeInsets.all(10),
                                   child: ElevatedButton(
                                       onPressed: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const Cadastro()),
-                                        );
+                                        model.signInGoogle(
+                                            onSuccess: _onSuccess,
+                                            onFail: _onFail);
                                       },
                                       style: ElevatedButton.styleFrom(
                                           shape: RoundedRectangleBorder(
@@ -305,7 +303,7 @@ class _LoginState extends State<Login> {
                                               side: const BorderSide(
                                                 color: Colors.black,
                                               )),
-                                          primary: Colors.white,
+                                          backgroundColor: Colors.white,
                                           fixedSize: const Size(140, 50)),
                                       child: Padding(
                                         padding: const EdgeInsets.all(8.0),
@@ -466,7 +464,7 @@ class _LoginState extends State<Login> {
                                         side: const BorderSide(
                                           color: Colors.black,
                                         )),
-                                    primary: Colors.white,
+                                    backgroundColor: Colors.white,
                                     fixedSize: const Size(300, 50)),
                                 child: RichText(
                                     text: const TextSpan(
@@ -534,7 +532,7 @@ class _LoginState extends State<Login> {
     );
     Future.delayed(const Duration(seconds: 2)).then((value) {
       Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => const Login()));
+          MaterialPageRoute(builder: (context) => const Linguagens()));
     });
   }
 

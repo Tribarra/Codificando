@@ -1,3 +1,4 @@
+import 'package:codificando/View/linguagens.dart';
 import 'package:codificando/View/login.dart';
 import 'package:codificando/models/user_model.dart';
 import 'package:flutter/material.dart';
@@ -294,17 +295,20 @@ class _CadastroState extends State<Cadastro> {
                                     errormessage[1] == null &&
                                     errormessage[2] == null &&
                                     errormessage[3] == null) {
-                                  Map<String, dynamic> userData = {
-                                    "name": _namecontroller.text,
-                                    "email": _emailcontroller.text,
-                                  };
-
-                                  model.signUp(
-                                      userData: userData,
-                                      pass: _passwordcontroller.text,
-                                      onSuccess: _onSuccess,
-                                      onFail: _onFail,
-                                      onFailEmail: _onFailEmail);
+                                  model.conectTest(
+                                      netSucess: () {
+                                        Map<String, dynamic> userData = {
+                                          "name": _namecontroller.text,
+                                          "email": _emailcontroller.text,
+                                        };
+                                        model.signUp(
+                                            userData: userData,
+                                            pass: _passwordcontroller.text,
+                                            onSuccess: _onSuccess,
+                                            onFail: _onFail,
+                                            onFailEmail: _onFailEmail);
+                                      },
+                                      netFail: _conectFail);
                                 }
                               },
                               style: ElevatedButton.styleFrom(
@@ -313,7 +317,7 @@ class _CadastroState extends State<Cadastro> {
                                       side: const BorderSide(
                                         color: Colors.black,
                                       )),
-                                  primary: Colors.white,
+                                  backgroundColor: Colors.white,
                                   fixedSize: const Size(300, 50)),
                               child: RichText(
                                   text: const TextSpan(
@@ -359,7 +363,7 @@ class _CadastroState extends State<Cadastro> {
                                           side: const BorderSide(
                                             color: Colors.black,
                                           )),
-                                      primary: Colors.white,
+                                      backgroundColor: Colors.white,
                                       fixedSize: const Size(140, 50)),
                                   child: RichText(
                                       text: const TextSpan(
@@ -384,7 +388,7 @@ class _CadastroState extends State<Cadastro> {
                                 padding: const EdgeInsets.all(10),
                                 child: ElevatedButton(
                                     onPressed: () {
-                                      model.getUser(
+                                      model.signInGoogle(
                                           onSuccess: _onSuccess,
                                           onFail: _onFail);
                                     },
@@ -395,7 +399,7 @@ class _CadastroState extends State<Cadastro> {
                                             side: const BorderSide(
                                               color: Colors.black,
                                             )),
-                                        primary: Colors.white,
+                                        backgroundColor: Colors.white,
                                         fixedSize: const Size(140, 50)),
                                     child: Padding(
                                       padding: const EdgeInsets.all(8.0),
@@ -451,6 +455,17 @@ class _CadastroState extends State<Cadastro> {
     }
   }
 
+  void _conectFail() {
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+      duration: Duration(seconds: 2),
+      content: Text(
+        'Sem conexão com a internet!',
+        style: TextStyle(color: Colors.white, fontFamily: "upheavtt"),
+      ),
+      backgroundColor: Colors.red,
+    ));
+  }
+
   void _onSuccess() {
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
@@ -464,7 +479,7 @@ class _CadastroState extends State<Cadastro> {
     );
     Future.delayed(const Duration(seconds: 2)).then((value) {
       Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => const Login()));
+          MaterialPageRoute(builder: (context) => const Linguagens()));
     });
   }
 
