@@ -297,7 +297,8 @@ class _LoginState extends State<Login> {
                                   child: ElevatedButton(
                                       onPressed: () {
                                         model.signInGoogle(
-                                            onSuccess: _onSuccess,
+                                            type: 1,
+                                            onSuccessSignIn: _onSuccess,
                                             onFail: _onFail);
                                       },
                                       style: ElevatedButton.styleFrom(

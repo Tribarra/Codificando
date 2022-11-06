@@ -12,11 +12,13 @@ class UserModel extends Model {
 
   final GoogleSignIn googleSignIn = GoogleSignIn();
 
-  void signInGoogle({
-    //Cadastro com o google
-    required VoidCallback onSuccess,
-    required VoidCallback onFail,
-  }) async {
+  void signInGoogle(
+      {
+      //Cadastro com o google
+      VoidCallback? onSuccessSignIn,
+      VoidCallback? onSuccessSignUp,
+      required VoidCallback onFail,
+      required int type}) async {
     isLoading = true;
     notifyListeners();
     try {
@@ -30,12 +32,24 @@ class UserModel extends Model {
           accessToken: googleSignInAuthentication?.accessToken);
 
       await FirebaseAuth.instance.signInWithCredential(credential);
-      userData = {
-        "name": FirebaseAuth.instance.currentUser?.displayName,
-        "email": FirebaseAuth.instance.currentUser?.email
-      };
-      _saveUserData(userData);
-      onSuccess();
+
+      if (type == 0) {
+        userData = {
+          "name": FirebaseAuth.instance.currentUser?.displayName,
+          "email": FirebaseAuth.instance.currentUser?.email,
+          "points": 0,
+          "cPoints": 0,
+        };
+        _saveUserData(userData);
+        if (onSuccessSignUp != null) {
+          onSuccessSignUp();
+        }
+      } else {
+        _loadCurrentUser();
+        if (onSuccessSignIn != null) {
+          onSuccessSignIn();
+        }
+      }
     } catch (e) {
       onFail();
     }
@@ -57,6 +71,12 @@ class UserModel extends Model {
           email: userData["email"], password: pass);
       onSuccess();
 
+      userData = {
+        "name": userData["name"],
+        "email": userData["email"],
+        "points": 0,
+        "cPoints": 0,
+      };
       await _saveUserData(userData);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
@@ -129,7 +149,12 @@ class UserModel extends Model {
           .collection("users")
           .doc(user.uid)
           .get(const GetOptions());
-      userData = {"name": docUser.get("name"), "email": docUser.get("email")};
+      userData = {
+        "name": docUser.get("name"),
+        "email": docUser.get("email"),
+        "points": docUser.get("points"),
+        "cPoints": docUser.get("cPoints")
+      };
     }
     notifyListeners();
   }
@@ -149,5 +174,34 @@ class UserModel extends Model {
     });
     isLoading = false;
     notifyListeners();
+  }
+
+  dynamic getInfo(int type) {
+    switch (type) {
+      case 0:
+        {
+          if (userData["name"] == null) {
+            return "Name";
+          } else {
+            return userData["name"];
+          }
+        }
+      case 1:
+        {
+          if (userData["points"] == null) {
+            return 0;
+          } else {
+            return userData["points"];
+          }
+        }
+      case 2:
+        {
+          if (userData["cPoints"] == null) {
+            return 0;
+          } else {
+            return userData["cPoints"];
+          }
+        }
+    }
   }
 }

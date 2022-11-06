@@ -389,7 +389,8 @@ class _CadastroState extends State<Cadastro> {
                                 child: ElevatedButton(
                                     onPressed: () {
                                       model.signInGoogle(
-                                          onSuccess: _onSuccess,
+                                          type: 0,
+                                          onSuccessSignUp: _onSuccess,
                                           onFail: _onFail);
                                     },
                                     style: ElevatedButton.styleFrom(
