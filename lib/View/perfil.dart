@@ -72,6 +72,11 @@ class _PerfilState extends State<Perfil> {
                     ),
                   ],
                 ),
+                ElevatedButton(
+                    onPressed: () {
+                      model.getAll();
+                    },
+                    child: const Text('sair')),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -97,14 +102,7 @@ class _PerfilState extends State<Perfil> {
                                   width: 50,
                                 ),
                               ),
-                              const Text(
-                                'Classe',
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  fontFamily: 'upheavtt',
-                                  color: Colors.black,
-                                ),
-                              ),
+                              model.myClasse(),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [

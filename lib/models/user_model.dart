@@ -1,12 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:codificando/models/system_model.dart';
+import 'package:codificando/widgets/rankingList.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
+
+import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class UserModel extends Model {
   bool isLoading = false;
+  bool rankIsLoading = true;
+
+  List<List<Map<int, String>>>? ranking;
 
   Map<String, dynamic> userData = {};
 
@@ -202,6 +207,111 @@ class UserModel extends Model {
             return userData["cPoints"];
           }
         }
+    }
+  }
+
+  Widget listRanking(classe) {
+    if (rankIsLoading == true && ranking == null) {
+      getAll();
+      return const Center(
+        child: CircularProgressIndicator(),
+      );
+    } else {
+      if (classe == 0) {
+        return RankingList(
+          people: ranking![0],
+          cor: Colors.green,
+        );
+      } else {
+        return SizedBox();
+      }
+    }
+  }
+
+  void getAll() async {
+    CollectionReference<Map<String, dynamic>> users =
+        FirebaseFirestore.instance.collection('users');
+    QuerySnapshot<Map<String, dynamic>> usersData = await users.get();
+
+    List<QueryDocumentSnapshot<Map<String, dynamic>>> all = usersData.docs;
+    int cont = all.length;
+    Map<String, List<Map<int, String>>> allUsers = {};
+    List<Map<int, String>> master = [];
+    List<Map<int, String>> senior = [];
+    List<Map<int, String>> pleno = [];
+    List<Map<int, String>> junior = [];
+
+    for (int i = 0; i <= cont - 1; i++) {
+      String nome = "";
+      int pont = -1;
+      all[i].data().forEach((key, value) {
+        if (key == "name") {
+          nome = value.toString();
+        }
+        if (key == "cPoints") {
+          pont = value;
+        }
+      });
+      if (pont != -1 && nome != "") {
+        if (pont < 1) {
+          junior.add({pont: nome});
+        }
+      }
+    }
+    print(junior);
+    ranking = [junior, pleno, senior, master];
+    rankIsLoading = false;
+    notifyListeners();
+  }
+
+  Widget myClasse() {
+    if (userData["cPoints"] != null) {
+      if (userData["cPoints"] < 1) {
+        return const Text(
+          'Junior',
+          style: TextStyle(
+            fontSize: 15,
+            fontFamily: 'upheavtt',
+            color: Colors.black,
+          ),
+        );
+      } else if (userData["cPoints"] < 2) {
+        return const Text(
+          'Pleno',
+          style: TextStyle(
+            fontSize: 15,
+            fontFamily: 'upheavtt',
+            color: Colors.black,
+          ),
+        );
+      } else if (userData["cPoints"] < 3) {
+        return const Text(
+          'Senior',
+          style: TextStyle(
+            fontSize: 15,
+            fontFamily: 'upheavtt',
+            color: Colors.black,
+          ),
+        );
+      } else {
+        return const Text(
+          'Master',
+          style: TextStyle(
+            fontSize: 15,
+            fontFamily: 'upheavtt',
+            color: Colors.black,
+          ),
+        );
+      }
+    } else {
+      return const Text(
+        'Classe',
+        style: TextStyle(
+          fontSize: 15,
+          fontFamily: 'upheavtt',
+          color: Colors.black,
+        ),
+      );
     }
   }
 }

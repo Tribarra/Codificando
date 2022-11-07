@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:scoped_model/scoped_model.dart';
+
+import '../models/user_model.dart';
 
 class Ranking extends StatefulWidget {
   const Ranking({super.key});
@@ -10,8 +13,9 @@ class Ranking extends StatefulWidget {
 class _RankingState extends State<Ranking> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Scrollbar(
+    return Scaffold(body:
+        ScopedModelDescendant<UserModel>(builder: (context, child, model) {
+      return Scrollbar(
         child: SingleChildScrollView(
           child: Center(
             child: Column(
@@ -131,8 +135,8 @@ class _RankingState extends State<Ranking> {
                                                     blurRadius: 15)
                                               ]),
                                           child: Column(
-                                            children: const [
-                                              Padding(
+                                            children: [
+                                              const Padding(
                                                 padding: EdgeInsets.all(15),
                                                 child: Text(
                                                   'Junior',
@@ -147,6 +151,7 @@ class _RankingState extends State<Ranking> {
                                                       ]),
                                                 ),
                                               ),
+                                              model.listRanking(0)
                                             ],
                                           ),
                                         ),
@@ -166,7 +171,7 @@ class _RankingState extends State<Ranking> {
             ),
           ),
         ),
-      ),
-    );
+      );
+    }));
   }
 }
