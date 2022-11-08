@@ -1,3 +1,5 @@
+import 'package:codificando/View/exercicio.dart';
+import 'package:codificando/View/teoria.dart';
 import 'package:flutter/material.dart';
 
 class Tema extends StatefulWidget {
@@ -55,13 +57,29 @@ class _TemaState extends State<Tema> {
                         decoration: BoxDecoration(
                             border: Border.all(width: 1, color: Colors.grey),
                             color: Colors.white),
-                        child: const Padding(
-                          padding: EdgeInsets.only(top: 15),
-                          child: Text(
-                            'Level\n1',
-                            textAlign: TextAlign.center,
-                            style:
-                                TextStyle(fontSize: 10, fontFamily: 'upheavtt'),
+                        child: TextButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const Exercicio()),
+                            );
+                          },
+                          style: TextButton.styleFrom(
+                              shape: const RoundedRectangleBorder(),
+                              backgroundColor: Colors.white,
+                              elevation: 0),
+                          child: const Padding(
+                            padding: EdgeInsets.only(top: 5),
+                            child: Text(
+                              'Level\n1',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 10,
+                                fontFamily: 'upheavtt',
+                                color: Colors.black,
+                              ),
+                            ),
                           ),
                         ),
                       ),
@@ -71,13 +89,23 @@ class _TemaState extends State<Tema> {
                         decoration: BoxDecoration(
                             border: Border.all(width: 1, color: Colors.grey),
                             color: Colors.white),
-                        child: const Padding(
-                          padding: EdgeInsets.only(top: 15),
-                          child: Text(
-                            'Level\n2',
-                            textAlign: TextAlign.center,
-                            style:
-                                TextStyle(fontSize: 10, fontFamily: 'upheavtt'),
+                        child: TextButton(
+                          onPressed: () {},
+                          style: TextButton.styleFrom(
+                              shape: const RoundedRectangleBorder(),
+                              backgroundColor: Colors.white,
+                              elevation: 0),
+                          child: const Padding(
+                            padding: EdgeInsets.only(top: 5),
+                            child: Text(
+                              'Level\n2',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 10,
+                                fontFamily: 'upheavtt',
+                                color: Colors.black,
+                              ),
+                            ),
                           ),
                         ),
                       ),
@@ -87,13 +115,23 @@ class _TemaState extends State<Tema> {
                         decoration: BoxDecoration(
                             border: Border.all(width: 1, color: Colors.grey),
                             color: Colors.white),
-                        child: const Padding(
-                          padding: EdgeInsets.only(top: 15),
-                          child: Text(
-                            'Level\n3',
-                            textAlign: TextAlign.center,
-                            style:
-                                TextStyle(fontSize: 10, fontFamily: 'upheavtt'),
+                        child: TextButton(
+                          onPressed: () {},
+                          style: TextButton.styleFrom(
+                              shape: const RoundedRectangleBorder(),
+                              backgroundColor: Colors.white,
+                              elevation: 0),
+                          child: const Padding(
+                            padding: EdgeInsets.only(top: 5),
+                            child: Text(
+                              'Level\n3',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 10,
+                                fontFamily: 'upheavtt',
+                                color: Colors.black,
+                              ),
+                            ),
                           ),
                         ),
                       ),
@@ -101,20 +139,28 @@ class _TemaState extends State<Tema> {
                         width: 50,
                         height: 50,
                         decoration: BoxDecoration(
-                            borderRadius: const BorderRadius.only(
-                                topRight: Radius.circular(15)),
                             border: Border.all(width: 1, color: Colors.grey),
                             color: Colors.white),
-                        child: const Padding(
-                          padding: EdgeInsets.only(top: 15),
-                          child: Text(
-                            'Level\n4',
-                            textAlign: TextAlign.center,
-                            style:
-                                TextStyle(fontSize: 10, fontFamily: 'upheavtt'),
+                        child: TextButton(
+                          onPressed: () {},
+                          style: TextButton.styleFrom(
+                              shape: const RoundedRectangleBorder(),
+                              backgroundColor: Colors.white,
+                              elevation: 0),
+                          child: const Padding(
+                            padding: EdgeInsets.only(top: 5),
+                            child: Text(
+                              'Level\n4',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 10,
+                                fontFamily: 'upheavtt',
+                                color: Colors.black,
+                              ),
+                            ),
                           ),
                         ),
-                      )
+                      ),
                     ],
                   )
                 ],
@@ -132,7 +178,12 @@ class _TemaState extends State<Tema> {
                 fixedSize: const Size(300, 50),
                 backgroundColor: Colors.orange,
                 elevation: 0),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const Teoria()),
+              );
+            },
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: const [

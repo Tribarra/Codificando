@@ -17,14 +17,12 @@ class _MenuState extends State<Menu> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _pageController = PageController();
   }
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     _pageController?.dispose();
   }

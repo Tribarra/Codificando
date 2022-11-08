@@ -222,8 +222,13 @@ class UserModel extends Model {
           people: ranking![0],
           cor: Colors.green,
         );
+      } else if (classe == 1) {
+        return RankingList(
+          people: ranking![1],
+          cor: Colors.blue,
+        );
       } else {
-        return SizedBox();
+        return const SizedBox();
       }
     }
   }
@@ -235,7 +240,6 @@ class UserModel extends Model {
 
     List<QueryDocumentSnapshot<Map<String, dynamic>>> all = usersData.docs;
     int cont = all.length;
-    Map<String, List<Map<int, String>>> allUsers = {};
     List<Map<int, String>> master = [];
     List<Map<int, String>> senior = [];
     List<Map<int, String>> pleno = [];
@@ -255,10 +259,12 @@ class UserModel extends Model {
       if (pont != -1 && nome != "") {
         if (pont < 1) {
           junior.add({pont: nome});
+        } else if (pont < 2) {
+          pleno.add({pont: nome});
         }
       }
     }
-    print(junior);
+
     ranking = [junior, pleno, senior, master];
     rankIsLoading = false;
     notifyListeners();
@@ -312,6 +318,29 @@ class UserModel extends Model {
           color: Colors.black,
         ),
       );
+    }
+  }
+
+  void logout() {
+    FirebaseAuth.instance.signOut();
+    googleSignIn.disconnect();
+    userData = {};
+    notifyListeners();
+  }
+
+  void updateInfo({int? points, int? cPoints}) {
+    if (userData != {}) {
+      userData = {
+        "name": userData['name'],
+        "email": userData['email'],
+        "points": points,
+        "cPoints": cPoints
+      };
+      _saveUserData(userData);
+      _loadCurrentUser();
+      rankIsLoading = true;
+      ranking = null;
+      notifyListeners();
     }
   }
 }

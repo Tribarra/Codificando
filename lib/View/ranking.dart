@@ -117,6 +117,7 @@ class _RankingState extends State<Ranking> {
                                               ]),
                                         ),
                                       ),
+                                      model.listRanking(1),
                                       Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: Container(

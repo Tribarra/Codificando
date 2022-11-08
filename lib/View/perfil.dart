@@ -1,3 +1,4 @@
+import 'package:codificando/View/cadastro.dart';
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 
@@ -73,10 +74,25 @@ class _PerfilState extends State<Perfil> {
                   ],
                 ),
                 ElevatedButton(
-                    onPressed: () {
-                      model.getAll();
-                    },
-                    child: const Text('sair')),
+                  onPressed: () {
+                    model.logout();
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => const Cadastro()),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          side: const BorderSide(
+                            color: Colors.black,
+                          )),
+                      backgroundColor: Colors.white,
+                      fixedSize: const Size(75, 25)),
+                  child: const Text('sair',
+                      style: TextStyle(
+                          color: Colors.black, fontFamily: "upheavtt")),
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
